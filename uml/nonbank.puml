@@ -1,0 +1,161 @@
+@startuml
+entity "客户（承租人、买方、卖方等）" as cust{
+  * id
+  * 客户名称
+  * 统一社会信用代码
+  * 客户
+}
+entity "项目方案" as project {
+  * id
+  * 客户Id
+  * 融资金额
+  * 融资时间
+}
+cust ||--|{ project
+entity "授信额度" as limit {
+  * id
+  * 客户id
+  * 额度编号
+  * 授信品种
+  * 授信金额
+  * 额度类型
+}
+cust ||--|{ limit
+entity "主合同" as contract{
+  * id
+  * 承租方id
+  * 出租方id
+  * 项目方案id
+  * 额度编号
+  * 合同金额
+  * 合同编号
+  * 其他合同要素
+  * [{保证金计划}]
+  * [{费用计划}]
+}
+cust }|--|{ contract
+project ||--|{ contract
+limit ||--|{ contract
+entity "合同租金表" as contractR {
+  * id
+  * 合同id
+  * 本金金额
+  * 利息金额
+  * 收取日期
+}
+contract ||--|{ contractR
+note left of contractR
+  为测算表，不作为最终生效的租金表
+end note
+entity "从合同" as assCont{
+ * id
+ * 主合同id
+ * 合同编号
+ * 合同金额
+ * 合同类型
+ * 合同签订日
+}
+note "会与客户签订一系列合同\n主合同一般指租赁合同\n其他合同统称为从合同" as N2
+contract .. N2
+N2 .. assCont
+contract }|--|{ assCont
+entity "资产—租赁物" as assets{
+  * id
+  * 编号
+  * 类型
+  * 原价值
+  * 现价值
+  * 状态
+}
+entity "资产—担保物" as cole {
+  * id
+  * 编号
+  * 类型
+  * 价值
+  * 担保金额
+  * 状态
+}
+assCont ||--|{ assets
+assCont }|--|{ cole
+entity "放款" as loan {
+  * id
+  * 合同id
+  * 项目方案id
+  * 承租方id
+  * 投放金额
+  * 投放时间
+  * [{保证金计划}]
+  * [{费用计划}]
+}
+contract ||--|{ loan
+entity "放款租金表" as loanR {
+  * id
+  * 放款id
+  * 款项类型
+  * 本金金额
+  * 利息金额
+  * 收取日期
+}
+loan ||--|{ loanR
+entity "有效应收款项" as rent{
+  * id
+  * 合同id
+  * 放款id
+  * 承租方/还款人id
+  * 款项类型
+  * 应收金额
+  * 应收日期
+  * 收取状态
+  * 实收金额
+  * 实收日期
+  * 是否逾期
+  * 违约金金额
+}
+rent }|--|| contract
+note left of rent
+  将租金表和保证金、费用信息合并
+  有时以每次放款为单位生成，
+  有时需要将同一合同下的多笔放款合并
+end note
+entity "摊销表" as amort {
+  * 合同id
+  * 放款id
+  * 承租方id
+  * 摊销日期
+  * 摊销月份
+  * 摊销金额
+  * 金额类型
+}
+note left of amort
+  根据一组应收款项生成
+  在整个收款周期内
+  每天都有一条记录
+end note
+amort }|--|{ rent
+entity "开票信息" as bill {
+ * 合同id
+ * 放款id
+ * 承租方/还款人id
+ * 应收款项id
+ * 开票日期
+ * 开票金额
+}
+bill }|--|{ rent
+entity "凭证信息" as vou {
+ * id
+ * 凭证编号
+ * 记账日期
+ * 合同编号
+ * 客户名称
+ * 其他业务信息
+ * 科目号
+ * 科目名称
+ * 金额
+ * 借贷方向
+}
+note right of vou
+  所有金钱往来的时点
+  都会生成凭证信息
+end note
+
+@enduml
