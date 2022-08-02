@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Contract extends Entity{
+public interface Contract extends Entity {
 
-    private Date date;
+    Date getDate();
 
-    private Map<String, Objects> contents;
+    Map<String, Objects> getContents();
 
-    private Customer customer;
+    Customer getCustomer();
 
-    private List<Contract> subContracts;
+    List<Contract> getSubContracts();
 
 }

@@ -2,8 +2,9 @@ package info.nemoworks.mmos.model;
 
 import java.util.List;
 
-public class Customer extends Entity {
+public interface Customer extends Entity {
 
-    private String name;
-    private List<Contract> contracts;
+    String getName();
+
+    List<Contract> getContracts();
 }
