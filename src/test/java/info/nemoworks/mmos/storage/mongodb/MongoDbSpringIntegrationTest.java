@@ -16,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = MMOSApplication.class)
-@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+@DataMongoTest
 @ExtendWith(SpringExtension.class)
 public class MongoDbSpringIntegrationTest {
     @DisplayName("given object to save"
@@ -30,10 +30,13 @@ public class MongoDbSpringIntegrationTest {
                 .get();
 
         // when
-        mongoTemplate.save(objectToSave, "collection");
+        mongoTemplate.save(objectToSave, "abc");
+
+
+        mongoTemplate.findAll(DBObject.class, "abc").stream().forEach(t-> System.out.println(t));
 
         // then
-        assertThat(mongoTemplate.findAll(DBObject.class, "collection")).extracting("key")
+        assertThat(mongoTemplate.findAll(DBObject.class, "abc")).extracting("key")
                 .containsOnly("value");
     }
 }

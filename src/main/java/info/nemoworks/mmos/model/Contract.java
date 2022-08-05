@@ -1,18 +1,26 @@
 package info.nemoworks.mmos.model;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.json.JSONObject;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
-public interface Contract extends Entity {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Contract extends Entity {
 
-    Date getDate();
+    protected LocalDateTime date;
 
-    Map<String, Objects> getContents();
+    protected Customer customer;
 
-    Customer getCustomer();
+    protected List<Contract> subContracts;
 
-    List<Contract> getSubContracts();
+    protected JSONObject contents;
 
 }
