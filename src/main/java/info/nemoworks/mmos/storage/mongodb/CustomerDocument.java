@@ -1,14 +1,12 @@
 package info.nemoworks.mmos.storage.mongodb;
 
-import info.nemoworks.mmos.model.Contract;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Document
+@Data
 public class CustomerDocument {
 
     @Id
@@ -16,7 +14,7 @@ public class CustomerDocument {
 
     protected String name;
 
-    @DBRef
-    protected List<Contract> contracts;
+//    @DBRef
+//    protected ContractDocument contract;
 
 }
