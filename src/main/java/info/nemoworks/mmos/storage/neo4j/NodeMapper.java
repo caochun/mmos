@@ -16,4 +16,13 @@ public interface NodeMapper {
     Customer customerNodeToCustomer(CustomerNode customerNode);
 
     CustomerNode customerToCustomerNode(Customer customer);
+
+    default String fromLong(Long id) {
+        return id.toString();
+    }
+
+    default Long fromString(String id) {
+        return Long.parseLong(id);
+    }
+
 }

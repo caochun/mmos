@@ -64,6 +64,17 @@
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>org.neo4j.driver</groupId>
+            <artifactId>neo4j-java-driver-spring-boot-starter</artifactId>
+            <version>4.3.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>4.4.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>

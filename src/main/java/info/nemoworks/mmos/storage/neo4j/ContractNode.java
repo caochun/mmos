@@ -17,15 +17,15 @@ import java.util.List;
 public class ContractNode {
 
     @Id @GeneratedValue
-    private String id;
+    private Long id;
 
     private LocalDateTime date;
 
     @Relationship(type = "CUSTOMER")
-    private Customer customer;
+    private CustomerNode customer;
 
     @Relationship(type = "SUBCONTRACT")
-    private List<Contract> subContracts;
+    private List<ContractNode> subContracts;
 
     private JSONObject contents;
 }
