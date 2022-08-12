@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Entity {
-    protected String id;
+    private String id;
 }

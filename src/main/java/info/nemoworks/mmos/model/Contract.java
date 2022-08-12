@@ -13,12 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Contract extends Entity {
 
-    protected LocalDateTime date;
+    private LocalDateTime date;
 
-    protected Customer customer;
+    private Customer customer;
 
-    protected List<Contract> subContracts;
+    private List<Contract> subContracts;
 
-    protected JSONObject contents;
+    private JSONObject contents;
 
 }

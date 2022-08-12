@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer extends Entity {
 
-    protected String name;
+    private String name;
 
 //    protected Contract contract;
 
