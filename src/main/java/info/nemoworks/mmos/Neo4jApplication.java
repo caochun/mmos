@@ -1,5 +1,8 @@
 package info.nemoworks.mmos;
 
+import info.nemoworks.mmos.model.Contract;
+import info.nemoworks.mmos.model.Customer;
+import info.nemoworks.mmos.storage.EntityStorage;
 import info.nemoworks.mmos.storage.neo4j.ContractNode;
 import info.nemoworks.mmos.storage.neo4j.ContractNodeRepository;
 import info.nemoworks.mmos.storage.neo4j.CustomerNode;
@@ -56,24 +59,42 @@ public class Neo4jApplication {
             }
         });
     }
+//
+//    @Bean
+//    CommandLineRunner demo(ContractNodeRepository contractNodeRepository) {
+//        return args -> {
+//
+//            contractNodeRepository.deleteAll();
+//
+//            CustomerNode customerNode = new CustomerNode();
+//            customerNode.setName("张三");
+//
+//            ContractNode contractNode = new ContractNode();
+//            contractNode.setDate(LocalDateTime.now());
+//            contractNode.setCustomer(customerNode);
+//
+//            contractNodeRepository.save(contractNode);
+//
+//
+//            System.out.println(contractNode);
+//
+//
+//        };
+//    }
+
 
     @Bean
-    CommandLineRunner demo(ContractNodeRepository contractNodeRepository) {
+    CommandLineRunner demo(EntityStorage entityStorage) {
         return args -> {
 
-            contractNodeRepository.deleteAll();
+            Customer c  = new Customer();
+            c.setName("李四");
 
-            CustomerNode customerNode = new CustomerNode();
-            customerNode.setName("张三");
+            Contract contract = new Contract();
+            contract.setCustomer(c);
+            contract.setDate(LocalDateTime.now());
 
-            ContractNode contractNode = new ContractNode();
-            contractNode.setDate(LocalDateTime.now());
-            contractNode.setCustomer(customerNode);
-
-            contractNodeRepository.save(contractNode);
-
-
-            System.out.println(contractNode);
+            entityStorage.save(contract);
 
 
         };

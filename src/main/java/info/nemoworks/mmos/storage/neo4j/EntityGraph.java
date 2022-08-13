@@ -5,7 +5,9 @@ import info.nemoworks.mmos.model.Customer;
 import info.nemoworks.mmos.model.Entity;
 import info.nemoworks.mmos.storage.EntityStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EntityGraph implements EntityStorage {
 
     @Autowired
